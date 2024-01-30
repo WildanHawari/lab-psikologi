@@ -37,7 +37,7 @@ Route::get("/mahasiswa/daftar", function () {
 
 // route CRUD
 Route::post("mahasiswaview/store", [mahasiswaController::class,"store"]); // C
-Route::resource('/admin', mahasiswaController::class); // R
+Route::resource('/admin', mahasiswaController::class)->middleware('auth'); // R //Auth users    
 Route::get("/mahasiswaview/edit/{npm}", [mahasiswaController::class,"dataEdit"]);
 Route::post("/mahasiswaview/update/{npm}", [mahasiswaController::class,"update"]);
 Route::delete("/mahasiswaview/destroy/{npm}", [mahasiswaController::class,"destroy"]); //D

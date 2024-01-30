@@ -28,7 +28,7 @@ class MahasiswaFactory extends Factory
             'alamat'=> $this->faker->address,
             'nohp' => $this->faker->biasedNumberBetween($min = 10000000, $max = 1111111, $function = 'sqrt'),
             'email'=> $this->faker->email,
-            'posisi' => "Asisten",
+            'posisi' => "Programmer",
             'ipk' => $this->faker->buildingNumber,
             'file' => $this->faker->fileExtension
         ];
