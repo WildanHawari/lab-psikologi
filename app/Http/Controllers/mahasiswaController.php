@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB as DB;
+use Illuminate\Support\Facades\Storage;
 
 class mahasiswaController extends Controller
 {
@@ -26,11 +27,12 @@ class mahasiswaController extends Controller
     }
 
     public function store(Request $request) {
-
+        // return $request->file('file')->store('file-mahasiswa');
+        // ddd($request);
         // cek request
         $validData = $request->validate([
             'npm' => ['required','min:8','max:8','unique:mahasiswas'],
-            'email' => 'email:gmail|unique:mahasiswas',
+            'email' => 'required|email:dns|unique:mahasiswas',
             'nama' =>'required|max:50',
             'password'=> 'required|min:5',
             'kelas' => 'required|min:5|max:5',
@@ -42,15 +44,17 @@ class mahasiswaController extends Controller
             'nohp'=> 'required',
             'posisi'=> 'required',
             'ipk'=> 'required',
-            'file'=> 'required'
+            'file'=> 'required|mimes:pdf|max:2048'
         ]);
         // hash password
         $validData['password'] = Hash::make($validData['password']);
+        // store ke file-mahasiswa
+        $validData['file'] = $request->file('file')->store('file-mahasiswa');
 
         Mahasiswa::create($validData);
         // dd($validData);
         toast('Data Berhasil di Daftarkan!','success');
-        // mengalihkan ke halaman add
+        // mengalihkan ke halaman add 
         return redirect('/mahasiswa/daftar');
     }
 
@@ -64,24 +68,39 @@ class mahasiswaController extends Controller
     }
 
     // update data mahasiswas
-    public function update(Request $request, $npm) {
-        Mahasiswa::where('npm',$npm)->update([
-            'npm'=> $request->npm,
-            'password'=> $request->password,
-            'nama'=> $request->nama,
-            'kelas'=> $request->kelas,
-            'jurusan'=> $request->jurusan,
-            'lokasi_kampus'=> $request->lokasi,
-            'tempat_tanggal_lahir'=> $request->ttl,
-            'jenis_kelamin'=> $request->jenkel,
-            'alamat'=> $request->alamat,
-            'nohp'=> $request->nohp,
-            'email'=> $request->email,
-            'posisi'=> $request->posisi,
-            'ipk'=> $request->ipk,
-            'file'=> $request->file
-        ]);
-
+    public function update(Request $request,Mahasiswa $mhs, $npm) {
+        // dd($request->npm);
+        $mhs = $mhs->find($npm);
+        // dd($request->file != $mhs->file);
+        $rules = [
+            'npm' => ['min:8','max:8'],
+            'email' => 'required|email:dns',
+            'nama' =>'required|max:50',
+            'password'=> 'min:5',
+            'kelas' => 'required|min:5|max:5',
+            'jurusan'=> 'required',
+            'lokasi_kampus'=> 'required',
+            'tempat_tanggal_lahir'=> 'required',
+            'jenis_kelamin'=> 'required',
+            'alamat'=> 'required|max:255',
+            'nohp'=> 'required',
+            'posisi'=> 'required',
+            'ipk'=> 'required',
+            'file'=> 'mimes:pdf|max:2048'
+        ];
+        $validData = $request->validate($rules);
+        
+        if($request->email != $mhs->email) {
+            $rules['email'] = 'required|email:dns|unique:mahasiswas';
+        }
+        // file update
+        if($request->file != null) {
+            if($request->file != $mhs->file) {  
+                Storage::delete($mhs->file);
+                $validData['file'] = $request->file('file')->store('file-mahasiswa');
+            }
+        }
+        Mahasiswa::where('npm',$npm)->update($validData);
         toast('Data Berhasil di Update!','success');
         return redirect('/admin');
     }
@@ -89,8 +108,9 @@ class mahasiswaController extends Controller
     // hapus data
     public function destroy($npm) {
         $datavar = Mahasiswa::find($npm);
-        // $datavar->delete();
-        dd($datavar);
+        Storage::delete($datavar->file);
+        $datavar->delete();
+        // dd($datavar->file);
         toast('Data Berhasil di Hapus!','success');
 
         return redirect('/admin');

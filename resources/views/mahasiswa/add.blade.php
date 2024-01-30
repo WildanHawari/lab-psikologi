@@ -18,7 +18,7 @@
     </div>
 
     <div class="container mt-5 border rounded-4 mb-5 bg-white">
-        <form class="row g-3 needs-validation p-4" action="/mahasiswaview/store" method="POST" novalidate>
+        <form class="row g-3 needs-validation p-4" action="/mahasiswaview/store" method="POST" enctype="multipart/form-data" novalidate>
             @csrf
             <div class="col-md-2">
                 <label for="npm" class="form-label">NPM</label>
@@ -211,7 +211,7 @@
             </div>
             <div class="col-12 mt-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                     <label class="form-check-label" for="invalidCheck">
                         Agree to terms and conditions
                     </label>

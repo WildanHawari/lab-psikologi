@@ -34,10 +34,10 @@
     @include('sweetalert::alert')
     <div class="px-5 mt-5">
         <h1>DATA CALON ASISTEN DAN PROGRAMMER</h1>
-        <a href="/mahasiswa/daftar">add</a>
+        {{-- <a href="/mahasiswa/daftar">add</a> --}}
 
         {{-- Table Programmer --}}
-        <h3 class="mt-5">Programmer</h3>
+        <h3 class="mt-5" id="programmer">Programmer</h3>
         {{-- search --}}
         <div class="row mt-2 justify-content-md-between">
             <div class="col-md-4 mt-3">
@@ -95,7 +95,7 @@
                                         <td>{{ $p->email }}</td>
                                         <td>{{ $p->ipk }}</td>
                                         <td>{{ $p->posisi }}</td>
-                                        <td>{{ $p->file }}</td>
+                                        <td><a href="{{ $p->file }}" target="_blank">View File</a></td>
                                         <td>{{ $p->created_at }}</td>
                                         <td class="text-center">
                                             <a href="/mahasiswaview/edit/{{ $p->npm }}" class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
@@ -112,7 +112,7 @@
                     </table>
                 </div>
                 <div class="d-flex mt-3 justify-content-sm-start justify-content-center">
-                    {{ $pro->links() }}
+                    {{ $pro->fragment('programmer')->links() }}
                 </div>
             </div>
         </div>
@@ -176,11 +176,11 @@
                                         <td>{{ $a->email }}</td>
                                         <td>{{ $a->ipk }}</td>
                                         <td>{{ $a->posisi }}</td>
-                                        <td>{{ $a->file }}</td>
+                                        <td><a href="{{ $a->file }}">View File</a></td>
                                         <td>{{ $a->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="/mahasiswaview/dataEdit/{{ $a->npm }}" class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
-                                            <a href="/mahasiswaview/delete/{{ $a->npm }}" class="btn btn-primary px-3 rounded-1" type="button">Delete</a>
+                                            <a href="/mahasiswaview/edit/{{ $p->npm }}" class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
+                                            <a href="/mahasiswaview/destroy/{{ $p->npm }}" class="btn btn-danger px-3 rounded-1" type="button" data-confirm-delete="true">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -193,7 +193,7 @@
                     </table>
                 </div>
                 <div class="d-flex mt-3 justify-content-sm-start justify-content-center ">
-                    {{ $ast->links() }}
+                    {{ $ast->fragment('asisten')->links() }}
                 </div>
             </div>
         </div>

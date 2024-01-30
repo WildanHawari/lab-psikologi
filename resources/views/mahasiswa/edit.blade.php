@@ -8,7 +8,11 @@
 <body class="bg-body-tertiary">
     {{-- alert --}}
     @include('sweetalert::alert')
-
+    @if ($errors->any())
+    @foreach ($errors as $r)
+    <p>{{ $r }}</p>
+    @endforeach
+    @endif
 
     <div class="container mt-5">
         <h1 class="mb-5">Edit Programmer dan Asisten Laboratorium Psikologi</h1>
@@ -16,17 +20,23 @@
 
     @foreach ($data as $d)
         <div class="container mt-5 border rounded-4 mb-5 bg-white">
-            <form class="row g-3 needs-validation p-4" action="{{ url('mahasiswaview/update', $d->npm) }}" method="POST" novalidate>
+            <form class="row g-3 needs-validation p-4" action="{{ url('mahasiswaview/update', $d->npm) }}" method="POST"
+                enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="col-md-2">
                     <label for="npm" class="form-label">NPM</label>
-                    <input type="text" class="form-control" name="npm"
-                        id="npm" value="{{ $d->npm }}" disabled>
+                    <input type="text" class="form-control @error('npm') is-invalid @enderror"" name="npm" id="npm"
+                        value="{{ old('npm', $d->npm) }}" disabled>
+                        @error('npm')
+                        <div class="invalid-feedback">
+                            {{ $errors->first('npm') }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="col-md-5">
                     <label for="nama" class="form-label">Nama</label>
                     <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
-                        id="nama" value="{{ $d->nama }}">
+                        id="nama" value="{{ old('nama', $d->nama) }}">
                     @error('nama')
                         <div class="invalid-feedback">
                             {{ $errors->first('nama') }}
@@ -36,7 +46,8 @@
                 <div class="col-md-5">
                     <label for="Password" class="form-label">Password</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
-                        id="password" value="{{ $d->password }}">
+                        id="password" disabled> 
+                        {{-- value="{{ old('password', $d->password) }}" --}}
                     @error('password')
                         <div class="invalid-feedback">
                             {{ $errors->first('password') }}
@@ -46,7 +57,7 @@
                 <div class="col-md-2">
                     <label for="kelas" class="form-label">Kelas</label>
                     <input type="text" class="form-control @error('kelas') is-invalid @enderror" name="kelas"
-                        id="kelas" value="{{ $d->kelas }}">
+                        id="kelas" value="{{ old('kelas', $d->kelas) }}">
                     <span id="kelas" class="form-text">
                         e.g 2KA13
                     </span>
@@ -60,16 +71,17 @@
                     <label for="jurusan" class="form-label">Jurusan</label>
                     <select class="form-select @error('jurusan') is-invalid @enderror" name="jurusan" id="jurusan">
                         <option selected disabled value=""></option>
-                        <option value="Sistem Informasi" {{ $d->jurusan == 'Sistem Informasi' ? 'selected' : '' }}>
+                        <option value="Sistem Informasi"
+                            {{ old('jurusan', $d->jurusan) == 'Sistem Informasi' ? 'selected' : '' }}>
                             Sistem
                             Informasi</option>
-                        <option value="Sistem Komputer" {{ $d->jurusan == 'Sistem Komputer' ? 'selected' : '' }}>
+                        <option value="Sistem Komputer"
+                            {{ old('jurusan', $d->jurusan) == 'Sistem Komputer' ? 'selected' : '' }}>
                             Sistem
                             Komputer</option>
-                        <option value="Teknik Informatika"
-                            {{ $d->jurusan == 'Teknik Informatika' ? 'selected' : '' }}>
+                        <option value="Teknik Informatika" {{ old('jurusan', $d->jurusan) == 'Teknik Informatika' ? 'selected' : '' }}>
                             Teknik Informatika</option>
-                        <option value="Psikologi" {{ old('jurusan') == 'Psikologi' ? 'selected' : '' }}>Psikologi
+                        <option value="Psikologi" {{ old('jurusan', $d->jurusan) == 'Psikologi' ? 'selected' : '' }}>Psikologi
                         </option>
                     </select>
                     @error('jurusan')
@@ -84,8 +96,8 @@
                     <select class="form-select @error('lokasi_kampus') is-invalid @enderror" name="lokasi_kampus"
                         id="lokasi">
                         <option selected disabled value=""></option>
-                        <option value="Depok" {{ $d->lokasi_kampus == 'Depok' ? 'selected' : '' }}>Depok</option>
-                        <option value="Kalimalang" {{ $d->lokasi_kampus == 'Kalimalang' ? 'selected' : '' }}>
+                        <option value="Depok" {{ old('lokasi_kampus', $d->lokasi_kampus) == 'Depok' ? 'selected' : '' }}>Depok</option>
+                        <option value="Kalimalang" {{ old('lokasi_kampus', $d->lokasi_kampus) == 'Kalimalang' ? 'selected' : '' }}>
                             Kalimalang
                         </option>
                     </select>
@@ -98,8 +110,7 @@
                 <div class="col-md-6">
                     <label for="tempat_tanggal_lahir" class="form-label">Tempat, Tanggal Lahir</label>
                     <input type="text" class="form-control @error('tempat_tanggal_lahir') is-invalid @enderror"
-                        name="tempat_tanggal_lahir" id="tempat_tanggal_lahir"
-                        value="{{ $d->tempat_tanggal_lahir }}">
+                        name="tempat_tanggal_lahir" id="tempat_tanggal_lahir" value="{{ old('tempat_tanggal_lahir',$d->tempat_tanggal_lahir) }}">
                     <span id="tempat_tanggal_lahir" class="form-text">
                         e.g Jakarta, 11 Februari 2004
                     </span>
@@ -115,9 +126,9 @@
                     <select class="form-select @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
                         id="jenis_kelamin">
                         <option selected disabled value=""></option>
-                        <option value="Laki-laki" {{ $d->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
+                        <option value="Laki-laki" {{ old('jenis_kelamin',$d->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
                         </option>
-                        <option value="Perempuan" {{ $d->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                        <option value="Perempuan" {{ old('jenis_kelamin',$d->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan
                         </option>
                     </select>
                     @error('jenis_kelamin')
@@ -131,9 +142,9 @@
                     <select class="form-select @error('posisi') is-invalid @enderror" name="posisi" id="posisi"
                         value="{{ old('posisi') }}">
                         <option selected disabled value=""></option>
-                        <option value="Programmer" {{ $d->posisi == 'Programmer' ? 'selected' : '' }}>Programmer
+                        <option value="Programmer" {{ old('posisi',$d->posisi) == 'Programmer' ? 'selected' : '' }}>Programmer
                         </option>
-                        <option value="Asisten" {{ $d->posisi == 'Asisten' ? 'selected' : '' }}>Asisten</option>
+                        <option value="Asisten" {{ old('posisi',$d->posisi) == 'Asisten' ? 'selected' : '' }}>Asisten</option>
                     </select>
                     @error('posisi')
                         <div class="invalid-feedback">
@@ -144,7 +155,7 @@
                 <div class="col-md-6">
                     <label for="ipk" class="form-label">IPK Terakhir</label>
                     <input type="text" class="form-control @error('ipk') is-invalid @enderror" name="ipk"
-                        id="ipk" value="{{ $d->ipk }}">
+                        id="ipk" value="{{ old('ipk',$d->ipk) }}">
                     <span id="ttl" class="form-text">
                         e.g 3.88 or 4.00
                     </span>
@@ -157,7 +168,7 @@
                 <div class="col-md-6">
                     <label for="nohp" class="form-label">No Hp (No Wa Aktif)</label>
                     <input type="text" class="form-control @error('nohp') is-invalid @enderror" name="nohp"
-                        id="nohp" value="{{ $d->nohp }}">
+                        id="nohp" value="{{ old('nohp',$d->nohp) }}">
                     <span id="ttl" class="form-text">
                         e.g 08561119104
                     </span>
@@ -170,8 +181,8 @@
                 <div class="col-md-6">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                        id="email" value="{{ $d->email }}">
-                    <span id="ttl" class="form-text">
+                        id="email" value="{{ old('email',$d->email) }}">
+                    <span id="email" class="form-text">
                         e.g calonprogrammer@gmail.com
                     </span>
                     @error('email')
@@ -182,7 +193,7 @@
                 </div>
                 <div class="col-12">
                     <label for="alamat" class="form-label">Alamat</label>
-                    <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="alamat" rows="4">{{ $d->alamat }}</textarea>
+                    <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="alamat" rows="4">{{ old('alamat',$d->alamat) }}</textarea>
                     @error('alamat')
                         <div class="invalid-feedback">
                             {{ $errors->first('alamat') }}
@@ -191,8 +202,12 @@
                 </div>
                 <div class="col-md-12">
                     <label for="file" class="form-label">File</label>
+                    <div class="input-group mb-3">
                     <input type="file" class="form-control @error('file') is-invalid @enderror" aria-label="file"
-                        name="file" id="file" value="{{ $d->file }}" accept="application/pdf">
+                        name="file" id="file" accept="application/pdf">
+                    <a href="{{ asset($d->file) }}" class="btn btn-primary px-3 rounded-1" type="button"
+                         target="_blank">Preview File</a>
+                    </div>
                     <span id="file" class="form-text">
                         Gabungkan <span class="fw-bolder">Berkas persyaratan CV, Scan KTP dan KRS aktif, Pass Foto
                             Berwarna
