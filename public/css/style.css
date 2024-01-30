@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Quicksand", Arial, Helvetica, sans-serif;
+    color: #3d3d3d;
+}
+
+.navbar {
+    transition: 20ms;
+}
+
+.navbar-scrolled {
+    background-color: white;
+    box-shadow: 0 2px 12px 0 rgba(36, 50, 66, 0.075);
+}
+
+th, thead {
+    position: sticky;
+    top:0;
+}
+
+table th {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
