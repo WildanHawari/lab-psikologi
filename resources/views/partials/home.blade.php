@@ -9,8 +9,8 @@
             officia a aspernatur tempore voluptas adipisci alias minima dolorem, consequatur porro
             reprehenderit, dolorum, tenetur ea optio velit!</p>
         <div class="text-center text-lg-start">
-            <a class="btn btn-primary mt-2 fw-semibold rounded-1 py-2 px-3 icon-link icon-link-hover align-items-center justify-content-center align-self-center"
-                href="#" role="button">Daftar Sekarang
+            <a class="btn btn-primary mt-2 fw-semibold rounded-1 py-2 px-3 icon-link icon-link-hover align-items-center justify-content-center align-self-center shadow-sm"
+                href="{{ url('/mahasiswa/daftar') }}" role="button">Daftar Sekarang
                 <i class="bi bi-arrow-right align-middle" aria-hidden="true" style="margin-top: -5px"></i>
             </a>
         </div>

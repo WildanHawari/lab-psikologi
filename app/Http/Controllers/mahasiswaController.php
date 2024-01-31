@@ -28,7 +28,7 @@ class mahasiswaController extends Controller
 
     public function store(Request $request) {
         // return $request->file('file')->store('file-mahasiswa');
-        // ddd($request);
+        // dd($request);
         // cek request
         $validData = $request->validate([
             'npm' => ['required','min:8','max:8','unique:mahasiswas'],
@@ -40,7 +40,7 @@ class mahasiswaController extends Controller
             'lokasi_kampus'=> 'required',
             'tempat_tanggal_lahir'=> 'required',
             'jenis_kelamin'=> 'required',
-            'alamat'=> 'required|:255',
+            'alamat'=> 'required|max:255',
             'nohp'=> 'required',
             'posisi'=> 'required',
             'ipk'=> 'required',

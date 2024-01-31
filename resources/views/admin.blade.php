@@ -16,7 +16,7 @@
         }
 
         .table td .btn,
-        .export .btn{
+        .export .btn {
             padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
             --bs-btn-font-size: 13px;
         }
@@ -24,14 +24,76 @@
         td {
             vertical-align: middle;
         }
-        /* .pagination {
-            --bs-pagination-active-bg: grey;
-        } */
+
     </style>
 </head>
 
 <body class="bg-body-tertiary">
     @include('sweetalert::alert')
+    {{-- Navbar --}}
+    <nav class="navbar navbar-expand-lg sticky-top bg-white" id="main-nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="">
+                <img src="https://i.ibb.co/pbWvbQj/Gunadarma.png" alt="Logo" width="50" height="50"
+                    class="d-inline-block align-text-middle">
+                Laboratorium Psikologi
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"
+                style="box-shadow: none">
+                <i class="fa-solid fa-bars fa-lg"></i>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <img src="https://i.ibb.co/pbWvbQj/Gunadarma.png" alt="Logo" width="70" height="70"
+                        class="offcanvas-title" id="offcanvasNavbarLabel">
+                    <h5 class="offcanvas-title fw-bolder" id="offcanvasNavbarLabel">Laboratorium Psikologi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                        style="box-shadow: none"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#programmer">Programmer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#asisten">Asisten</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <div class="d-grid gap-1 d-md-flex">
+                        <!-- Authentication Links -->
+                        @guest
+                            {{-- @if (Route::has('login'))
+                                @endif
+                                @if (Route::has('register'))
+                                @endif --}}
+                        @else
+                            <div class="dropdown-center">
+                                <a class="btn btn-primary px-3 rounded-1 dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->username }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}</a></li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        @endguest
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {{-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --}}
+
+
     <div class="px-5 mt-5">
         <h1>DATA CALON ASISTEN DAN PROGRAMMER</h1>
         {{-- <a href="/mahasiswa/daftar">add</a> --}}
@@ -52,7 +114,8 @@
             {{-- export --}}
             <div class="col-md-6 mt-md-2 pt-md-2 text-md-end mb-4">
                 <div class="export d-grid justify-content-md-end">
-                    <a href="/mahasiswaview/export_programmer" target="_blank" class="btn btn-primary px-3 rounded-1"><i class="bi bi-download pe-1"></i> Export</a>
+                    <a href="/mahasiswaview/export_programmer" target="_blank" class="btn btn-primary px-3 rounded-1"><i
+                            class="bi bi-download pe-1"></i> Export</a>
                 </div>
             </div>
         </div>
@@ -98,8 +161,11 @@
                                         <td><a href="{{ $p->file }}" target="_blank">View File</a></td>
                                         <td>{{ $p->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="/mahasiswaview/edit/{{ $p->npm }}" class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
-                                            <a href="/mahasiswaview/destroy/{{ $p->npm }}" class="btn btn-danger px-3 rounded-1" type="button" data-confirm-delete="true">Delete</a>
+                                            <a href="/mahasiswaview/edit/{{ $p->npm }}"
+                                                class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
+                                            <a href="/mahasiswaview/destroy/{{ $p->npm }}"
+                                                class="btn btn-danger px-3 rounded-1" type="button"
+                                                data-confirm-delete="true">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -132,7 +198,8 @@
             </div>
             <div class="col-md-6 mt-md-2 pt-md-2 text-md-end mb-4">
                 <div class="export d-grid justify-content-md-end">
-                    <a href="/mahasiswaview/export_programmer" target="_blank" class="btn btn-primary px-3 rounded-1"><i class="bi bi-download pe-1"></i> Export</a>
+                    <a href="/mahasiswaview/export_programmer" target="_blank"
+                        class="btn btn-primary px-3 rounded-1"><i class="bi bi-download pe-1"></i> Export</a>
                 </div>
             </div>
         </div>
@@ -179,8 +246,11 @@
                                         <td><a href="{{ $a->file }}">View File</a></td>
                                         <td>{{ $a->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="/mahasiswaview/edit/{{ $p->npm }}" class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
-                                            <a href="/mahasiswaview/destroy/{{ $p->npm }}" class="btn btn-danger px-3 rounded-1" type="button" data-confirm-delete="true">Delete</a>
+                                            <a href="/mahasiswaview/edit/{{ $p->npm }}"
+                                                class="btn btn-primary px-3 rounded-1" type="button">Edit</a>
+                                            <a href="/mahasiswaview/destroy/{{ $p->npm }}"
+                                                class="btn btn-danger px-3 rounded-1" type="button"
+                                                data-confirm-delete="true">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

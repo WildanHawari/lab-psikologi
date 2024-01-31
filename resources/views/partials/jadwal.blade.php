@@ -14,7 +14,7 @@
         <div class="row row-cols-1 row-cols-sm-2 g-4">
             <div class="col d-flex flex-column gap-2">
                 <div class="feature-icon-small d-inline-flex fs-4 rounded-3 flex-shrink-0 me-3">
-                    <i class="bi bi-calendar-week text-bg-primary py-2 px-3 rounded-3"></i>
+                    <i class="bi bi-calendar-week text-bg-primary py-2 px-3 rounded-3 shadow-sm"></i>
                 </div>
                 <h4 class="fw-semibold mb-0 text-body-emphasis">Pembukaan Pendaftaran</h4>
                 <p class="text-body-secondary">1 Januari 2024</p>
@@ -22,7 +22,7 @@
 
             <div class="col d-flex flex-column gap-2">
                 <div class="feature-icon-small d-inline-flex fs-4 rounded-3 flex-shrink-0 me-3">
-                    <i class="bi bi-card-heading text-bg-primary py-2 px-3 rounded-3"></i>
+                    <i class="bi bi-card-heading text-bg-primary py-2 px-3 rounded-3 shadow-sm"></i>
                 </div>
                 <h4 class="fw-semibold mb-0 text-body-emphasis">Gelombang Pendaftaran</h4>
                 <p class="text-body-secondary">Gelombong 1</p>
@@ -30,7 +30,7 @@
 
             <div class="col d-flex flex-column gap-2">
                 <div class="feature-icon-small d-inline-flex fs-4 rounded-3 flex-shrink-0 me-3">
-                    <i class="bi bi-calendar-x text-bg-primary py-2 px-3 rounded-3"></i>
+                    <i class="bi bi-calendar-x text-bg-primary py-2 px-3 rounded-3 shadow-sm"></i>
                 </div>
                 <h4 class="fw-semibold mb-0 text-body-emphasis">Penutupan Pendaftaran</h4>
                 <p class="text-body-secondary">13 Januari 2024</p>
@@ -38,7 +38,7 @@
 
             <div class="col d-flex flex-column gap-2">
                 <div class="feature-icon-small d-inline-flex fs-4 rounded-3 flex-shrink-0 me-3">
-                    <i class="bi bi-diagram-3 text-bg-primary py-2 px-3 rounded-3"></i>
+                    <i class="bi bi-diagram-3 text-bg-primary py-2 px-3 rounded-3 shadow-sm"></i>
                 </div>
                 <h4 class="fw-semibold mb-0 text-body-emphasis">Technical Meeting</h4>
                 <p class="text-body-secondary">17 Januari 2024
@@ -47,7 +47,7 @@
 
             <div class="col d-flex flex-column gap-2">
                 <div class="feature-icon-small d-inline-flex fs-4 rounded-3 flex-shrink-0 me-3">
-                    <i class="bi bi-display text-bg-primary py-2 px-3 rounded-3"></i>
+                    <i class="bi bi-display text-bg-primary py-2 px-3 rounded-3 shadow-sm"></i>
                 </div>
                 <h4 class="fw-semibold mb-0 text-body-emphasis">Pelaksanaan Seleksi</h4>
                 <p class="text-body-secondary">1 Februari 2024
@@ -56,7 +56,7 @@
 
             <div class="col d-flex flex-column gap-2">
                 <div class="feature-icon-small d-inline-flex fs-4 rounded-3 flex-shrink-0 me-3">
-                    <i class="bi bi-megaphone text-bg-primary py-2 px-3 rounded-3"></i>
+                    <i class="bi bi-megaphone text-bg-primary py-2 px-3 rounded-3 shadow-sm"></i>
                 </div>
                 <h4 class="fw-semibold mb-0 text-body-emphasis">Pengumuman Hasil</h4>
                 <p class="text-body-secondary">7 Februari 2024

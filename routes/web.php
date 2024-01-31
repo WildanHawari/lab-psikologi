@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\mahasiswaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\mahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout/main', [
+    return view('layouts/main', [
         "tittle" => "Pendaftaran Asisten dan Programmer",
         "link_announcement" => "http://bit.ly/OprecProgrammer2024",
         "tahun" => "2024",
@@ -29,15 +31,9 @@ Route::get("/mahasiswa/daftar", function () {
     ]);
 });
 
-// Route::get("/admin", function () {
-//     return view("admin", [
-//         "tittle" => "Admin"
-//     ]);
-// });
-
 // route CRUD
 Route::post("mahasiswaview/store", [mahasiswaController::class,"store"]); // C
-Route::resource('/admin', mahasiswaController::class); // R
+Route::resource('/admin', mahasiswaController::class)->middleware('auth'); // R
 Route::get("/mahasiswaview/edit/{npm}", [mahasiswaController::class,"dataEdit"]);
 Route::post("/mahasiswaview/update/{npm}", [mahasiswaController::class,"update"]);
 Route::delete("/mahasiswaview/destroy/{npm}", [mahasiswaController::class,"destroy"]); //D
@@ -46,3 +42,6 @@ Route::delete("/mahasiswaview/destroy/{npm}", [mahasiswaController::class,"destr
 Route::get('/mahasiswaview/export_programmer', function(){
     return view('mahasiswa/export_programmer');
 });
+Auth::routes();
+
+// Route::get('/home', [HomeController::class, 'index'])->name('home');

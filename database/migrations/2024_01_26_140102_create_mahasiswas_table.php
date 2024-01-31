@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->string('npm',8)->primary();
-            $table->string('password',30);
+            $table->string('password',100);
             $table->string('nama',30);
             $table->string('kelas',5)->nullable();
             $table->string('jurusan',30)->nullable();
